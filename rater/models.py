@@ -61,5 +61,18 @@ class Project(models.Model):
     @classmethod
     def get_project_by_userid(cls, id):
         project=Project.objects.filter(user__pk=id)
+
+class Rate(models.Model):
+    '''
+    To store average rate given to the project
+    '''              
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    project= models.ForeignKey(Project, on_delete=models.CASCADE)
+    design=models.ImageField(max_length=3)
+    usability=models.ImageField(max_length=3)
+    content=models.ImageField(max_length=3)
+
+    def save_rate(self):
+        self.save()
+
         
-             
