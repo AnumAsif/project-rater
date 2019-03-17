@@ -43,6 +43,8 @@ class Project(models.Model):
     description = models.TextField(max_length=200)
     link = models.URLField(null=True, blank=True, default='')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post_date=models.DateTimeField(auto_now=True)
+ 
 
     class Meta:
         ordering=('-post_date')
@@ -75,4 +77,3 @@ class Rate(models.Model):
     def save_rate(self):
         self.save()
 
-        
