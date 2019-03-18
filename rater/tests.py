@@ -31,7 +31,28 @@ class ProfileTestCase(TestCase):
         self.assertTrue(profile!=None)
 
 
+class ImageTestCase(TestCase):
 
+    def setUp(self):
+        self.u1 = User.objects.create(username='user1')
+        self.project=Project.objects.create(title="portfolio",description="dasdasdasd", user=self.u1)        
+
+    def tearDown(self):
+        self.project.delete()
+        self.u1.delete()
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.project, Project))
+
+    def test_save_project(self):
+        self.project.save_project()
+        projects=Project.objects.all()
+        self.assertTrue(len(projects)>0)
+     
+    def test_get_all_projects(self):
+        self.project.save_project()
+        projects= Project.get_all_projects()
+        self.assertTrue(len(projects)>0)
 
 class RatingTestCase(TestCase):
 
