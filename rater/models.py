@@ -34,6 +34,18 @@ class Profile(models.Model):
         profile=Profile.objects.filter(user=id).first()
         return profile    
 
+class Language(models.Model):
+    '''
+    To add language used to create a project
+    '''
+    title=models.CharField(max_length=50)
+   
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ('title',)
+        
 class Project(models.Model):
     '''
     A class containing all the project information
@@ -82,14 +94,3 @@ class Rating(models.Model):
         ratings=Rating.objects.filter(project__id=id)
         return ratings
 
-class Language(models.Model):
-    '''
-    To add language used to create a project
-    '''
-    title=models.CharField(max_length=50)
-   
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        ordering = ('title',)
