@@ -5,4 +5,4 @@ from .models import Profile, Language, Project, Rating
 admin.site.register(Profile)
 admin.site.register(Language)
 admin.site.register(Project)
-admin.site.register(Rgating)
+admin.site.register(Rating)
