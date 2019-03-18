@@ -44,7 +44,7 @@ class Project(models.Model):
     link = models.URLField(null=True, blank=True, default='')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post_date=models.DateTimeField(auto_now=True)
- 
+    languages = models.ManyToManyField(Language)
 
     class Meta:
         ordering=('-post_date',)
@@ -87,8 +87,7 @@ class Language(models.Model):
     To add language used to create a project
     '''
     title=models.CharField(max_length=50)
-    projects = models.ManyToManyField(Project)
-
+   
     def __str__(self):
         return self.title
 
