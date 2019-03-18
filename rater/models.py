@@ -9,8 +9,8 @@ class Profile(models.Model):
     '''
     user=models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     profile_pic=ImageField(blank=True, manual_crop='200x200')
-    bio=HTMLField()
-    contact_no=models.IntegerField(max_length=12)
+    bio=models.TextField(max_length=200)
+    contact_no=models.IntegerField(null=True)
 
 
     def __str__(self):
@@ -47,7 +47,7 @@ class Project(models.Model):
  
 
     class Meta:
-        ordering=('-post_date')
+        ordering=('-post_date',)
 
     def __str__(self):
         return self.title
@@ -64,16 +64,33 @@ class Project(models.Model):
     def get_project_by_userid(cls, id):
         project=Project.objects.filter(user__pk=id)
 
-class Rate(models.Model):
+class Rating(models.Model):
     '''
     To store average rate given to the project
     '''              
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project= models.ForeignKey(Project, on_delete=models.CASCADE)
-    design=models.ImageField(max_length=3)
-    usability=models.ImageField(max_length=3)
-    content=models.ImageField(max_length=3)
-
+    design=models.IntegerField(default=0)
+    usability=models.IntegerField(default=0)
+    content=models.IntegerField(default=0)
+    
     def save_rate(self):
         self.save()
+    
+    @classmethod
+    def get_ratings_by_project(cls, id):
+        ratings=Rating.objects.filter(project__id=id)
+        return ratings
 
+class Language(models.Model):
+    '''
+    To add language used to create a project
+    '''
+    title=models.CharField(max_length=50)
+    projects = models.ManyToManyField(Project)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ('title',)
