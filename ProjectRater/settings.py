@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rater.apps.RaterConfig',
     'pyuploadcare.dj',
+    'bootstrap3',
 ]
 UPLOADCARE = {
     'pub_key': '111878e0358f1fbf9828',
