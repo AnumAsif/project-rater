@@ -95,6 +95,6 @@ class Rating(models.Model):
     
     @classmethod
     def get_ratings_by_project(cls, id):
-        ratings=Rating.objects.filter(project__id=id)
+        ratings=Rating.objects.filter(project__id=id).all()
         return ratings
 

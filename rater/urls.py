@@ -10,6 +10,7 @@ urlpatterns = [
      url(r'^$', views.index, name = 'index'),
      url(r'^signup/$',views.signup, name='signup'),
      url(r'^project/(?P<project_id>\d+)', views.project, name = 'project'),
+     # url(r'^rate/(?P<project_id>\d+)', views.rate, name = 'rate'),
      url(r'^login/$',auth_views.login, name="login"),
      # url(r'^ajax/project/(?P<project_id>\d+)', views.rate,name='rate')     
      url(r'^project/$', views.add_project, name="add_project"),

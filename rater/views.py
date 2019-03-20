@@ -2,9 +2,9 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from .models import Project, Profile, Language
+from .models import Project, Profile, Language, Rating
 from django.http import JsonResponse
-from .forms import ProjectForm, SignUpForm, ProfileForm
+from .forms import ProjectForm, SignUpForm, ProfileForm, RateForm
 from django.contrib.auth.models import User
 # Create your views here.
 def signup(request):
@@ -30,15 +30,39 @@ def index(request):
     
     return render(request, 'index.html', {"projects":projects})
 
+@login_required(login_url='/login')
 def project(request, project_id):
     project=Project.objects.filter(id=project_id).first()
+    user=request.user
+    rates = Rating.objects.filter(user=user, project=project).first()
+    averageRate=(rates.usability+rates.design+rates.content)/3
+    if request.method == 'POST':
+        form = RateForm(request.POST)
+        if form.is_valid() and rates is None:
+            rate=form.save(commit=False)
+            rate.user=user
+            rate.project=project
+            rate.save()
+            return redirect('project',project_id=project.id)
+        else:
+            rates.delete()
+            rate=form.save(commit=False)
+            rate.user=user
+            rate.project=project
+            rate.save()
+            return redirect('project',project_id=project.id)
 
-    return render(request, 'project.html',{'project':project})
+    else:
+        form = RateForm()
+        all_rates = Rating.objects.filter(project=project).all()
+        
+    # return render(request,'project.html',{'form':form, 'current_user':user,"project":project})
+        return render(request, 'project.html',{'project':project,'form':form, 'average':averageRate, 'all_rates':all_rates})
 
-def rate(request):
-    design_rating = request.POST.get('rating')
-    data = {'success': 'You have been successfully added to mailing list'}
-    return JsonResponse(data)
+# def rate(request):
+#     design_rating = request.POST.get('rating')
+#     data = {'success': 'You have been successfully added to mailing list'}
+#     return JsonResponse(data)
 
 @login_required(login_url='/login')
 def add_project(request):
@@ -92,20 +116,19 @@ def edit_profile(request):
 
     return render(request, 'edit_profile.html', {'form':form, 'current_user':user})
 
-# def edit_profile(request):
+# @login_required(login_url='/login')
+# def rate(request, id):
+#     project=Project.objects.filter(id=id).first()
+#     user=request.user
 #     if request.method == 'POST':
-#         # user_form = UserForm(request.POST, instance=request.user)
-#         profile_form = ProfileForm(request.POST, instance=request.user.profile)
-#         if profile_form.is_valid():
-#             # user_form.save()
-#             profile_form.save(commit=False)
-#             profile_form.user=request.user
-#             profile_form.save()
-#             messages.success(request, _('Your profile was successfully updated!'))
-#             return redirect('edit_profile')
-#         else:
-#             messages.error(request, _('Please correct the error below.'))
+#         form = RateForm(request.POST)
+#         if form.is_valid():
+#             rate=form.save(commit=False)
+#             rate.user=user
+#             rate.project=project
+#             rate.save()
+#             return redirect('project',project_id=project.id)
 #     else:
-#         # user_form = UserForm(instance=request.user)
-#         profile_form = ProfileForm(instance=request.user.profile)
-#     return render(request,'edit_profile.html', {'profile_form': profile_form } )
+#         form = RateForm()
+#     return render(request,'project.html',{'form':form, 'current_user':user,"project":project})
+

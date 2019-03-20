@@ -35,10 +35,26 @@ class ProjectForm(forms.ModelForm):
     #     self.fields["languages"].queryset = Language.objects.all()         
 
 class RateForm(forms.ModelForm):
+    RATINGS = (
+      (1,''),
+      (2,''),
+      (3,''),
+      (4,''),
+      (5,''),
+      (6,''),
+      (7,''),
+      (8,''),
+      (9,''),
+      (10,'')
+   )
+
+    design = forms.ChoiceField(choices=RATINGS, widget=forms.RadioSelect())
+    usability = forms.ChoiceField(choices=RATINGS, widget=forms.RadioSelect())
+    content = forms.ChoiceField(choices=RATINGS, widget=forms.RadioSelect())  
     class Meta:
-        model=Rating
-        exclude=['user','project']
-        fields=('design','usability','content')                    
+            model=Rating
+            exclude=['user','project']
+            fields=('design','usability','content')                    
 
 class languageForm(forms.ModelForm):
     class Meta:
