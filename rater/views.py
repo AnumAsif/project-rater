@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Project, Profile, Language
 from django.http import JsonResponse
 from .forms import ProjectForm, SignUpForm, ProfileForm
+from django.contrib.auth.models import User
 # Create your views here.
 def signup(request):
     if request.method == 'POST':
@@ -54,3 +55,57 @@ def add_project(request):
     else:
         form = ProjectForm() 
     return render(request, "new_project.html", {"form":form})       
+
+def search(request):
+    current_user=request.user
+    if 'search' in request.GET and request.GET['search']:
+        search_term = request.GET.get('search')
+        projects = Project.objects.filter(title__icontains=search_term).all()
+        message=f'{search_term}'
+
+        return render(request, 'search.html', {'message':message, 'projects':projects, 'current_user':current_user})
+
+    else:
+        message='Enter term to search'
+        return render(request, 'search.html',{'message':message, 'current_user':current_user})     
+
+
+@login_required(login_url='/login')
+def profile(request,username):
+    user=User.objects.get(username=username)
+    projects=Project.objects.filter(user__pk=user.id)
+    current_user = request.user
+    return render(request, 'profile.html',{'current_user':current_user,'user':user,'projects':projects})    
+
+@login_required(login_url='/login')
+def edit_profile(request):
+    user=request.user
+    if request.method == 'POST':
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            edit = form.save(commit=False)
+            edit.user = user
+            edit.save()
+            return redirect('edit_profile')
+    else:
+        form = ProfileForm()
+
+    return render(request, 'edit_profile.html', {'form':form, 'current_user':user})
+
+# def edit_profile(request):
+#     if request.method == 'POST':
+#         # user_form = UserForm(request.POST, instance=request.user)
+#         profile_form = ProfileForm(request.POST, instance=request.user.profile)
+#         if profile_form.is_valid():
+#             # user_form.save()
+#             profile_form.save(commit=False)
+#             profile_form.user=request.user
+#             profile_form.save()
+#             messages.success(request, _('Your profile was successfully updated!'))
+#             return redirect('edit_profile')
+#         else:
+#             messages.error(request, _('Please correct the error below.'))
+#     else:
+#         # user_form = UserForm(instance=request.user)
+#         profile_form = ProfileForm(instance=request.user.profile)
+#     return render(request,'edit_profile.html', {'profile_form': profile_form } )

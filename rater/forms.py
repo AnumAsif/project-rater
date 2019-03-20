@@ -13,6 +13,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model=Profile
         exclude=['user']
+        fields=('bio','contact_no','profile_pic')
         
 
 class ProjectForm(forms.ModelForm):

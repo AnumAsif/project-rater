@@ -13,6 +13,19 @@ a{
     align-self: center;
 }
 
+.search-results{
+    width:100%;
+    margin:0 auto;
+    text-align: center;
+    font-size: 26px;
+    
+}
+.searched-profiles .card{
+    width:100%;
+    margin:0 auto;
+    text-align:center;
+    margin-bottom:20px;
+}
 #search{
     display:block;
     text-align: center;
@@ -165,14 +178,14 @@ h1 { font-size: 1.5em; margin: 10px; }
     text-align:center;
     padding:20px;
 }
-.add-project form label{
+.add-project form label,.edit-project form label{
     display:none;
     align-self: center;
 }
 .add-project{
     font-family: 'Playfair Display', serif;
     font-size:20px;
-    background-color: #91c9b2;
+    background-color: #e0e4e0;
     align-content: center;
     border-radius: 5px;
 }
@@ -182,10 +195,23 @@ h1 { font-size: 1.5em; margin: 10px; }
     text-align: center;
 
 }
+.edit-project h1{
+    font-size: 30px;
+    margin-left:0;
+}
 .add-project button{
     margin-left:0;
 }
 .add-project input,.add-project textarea,
 select{
     width:60%;
+}
+
+.profile-image{
+    width:400px;
+    height:400px;
+    overflow:hidden;
+}
+.profile-image img{
+    width:inherit;
 }
