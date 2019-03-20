@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'',include('rater.urls')),
     # url(r'^accounts/',include('registration.backends.simple.urls')),
-    url(r'^logout/$', auth_views.logout, {"next_page":'/accounts/login'}, name="logout"),
+    url(r'^logout/$', auth_views.logout, {"next_page":'index'}, name="logout"),
 ]

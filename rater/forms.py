@@ -19,17 +19,19 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model=Project
         exclude=['post_date','user']
+        fields=('title','description','link','languages','image',)
         widgets={
-            'title':forms.TextInput(attrs={'placeholder':'Enter Project Name...'})       }
-            'description':forms.Textarea(attrs={'placeholder':'Enter project description...'}),
-            'link':forms.URLField(attrs={'placeholder':'Enter project URL'})
+            'title':forms.TextInput(attrs={'placeholder':'Enter Project Title'}) ,
+            'description':forms.Textarea(attrs={'placeholder':'Enter Project Description'}),
+            'link':forms.URLInput(attrs={'placeholder':'Enter link to live site...'}),
+        
         }
-    def __init__ (self, *args, **kwargs):
-        brand = kwargs.pop("brand")
-        super(ProjectForm, self).__init__(*args, **kwargs)
-        self.fields["languages"].widget = forms.widgets.CheckboxSelectMultiple()
-        self.fields["languages"].help_text = ""
-        self.fields["languages"].queryset = Language.objects.all()         
+    # def __init__ (self, *args, **kwargs):
+    #     # brand = kwargs.pop("brand")
+    #     super(ProjectForm, self).__init__(*args, **kwargs)
+    #     self.fields["languages"].widget = forms.widgets.CheckboxSelectMultiple()
+    #     self.fields["languages"].help_text = ""
+    #     self.fields["languages"].queryset = Language.objects.all()         
 
 class RateForm(forms.ModelForm):
     class Meta:
@@ -40,4 +42,4 @@ class RateForm(forms.ModelForm):
 class languageForm(forms.ModelForm):
     class Meta:
         model=Language
-        fields=('title')        
+        fields=('title',)        

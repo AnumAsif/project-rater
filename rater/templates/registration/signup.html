@@ -5,6 +5,7 @@
 {% block content %}
 <div class="container">
   <div class="row signup-page">
+    <div class="col-md-3"></div>
     <div class="col-md-6">
       {% if form.errors %}
         <p>Some information may be incorrect</p>
@@ -25,13 +26,14 @@
               </div>
           </div>
           <div class="section  login">
-              <p>Have an account? <a href="/accounts/login/">Log In</a></p>
+              <p>Have an account? <a href="{% url 'login' %}">Log In</a></p>
           </div>
       </div>
-    <div>
-  </div>
-  <!-- <p>Get the app</p> -->
+     <!-- <p>Get the app</p> -->
  
+    </div>
+    <div class="col-md-3"></div>
+  </div>
 </div>
  
 {% endblock %}

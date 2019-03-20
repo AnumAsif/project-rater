@@ -1,5 +1,6 @@
  body{
     background-color: #FCF9E9;
+    font-family: 'Playfair Display', serif;
 }
 .navbar{
     background-color: #303E48;
@@ -7,7 +8,7 @@
     padding-top:15px;
 }
 a{
-    color:#7DA6A9;
+    color:#e0e4e0;
     font-size:20px;
     align-self: center;
 }
@@ -20,12 +21,17 @@ a{
 #search div input{
     font-size: 16px;
 }
+.home{
+    width:100%;
+    margin:0 auto;
+    text-align:center;
+}
 .card {
-    width: 500px;
-    margin: 20px 20px;
+    width: 400px;
+    /* margin: 20px 20px; */
     /* align-self: center; */
     /* margin-left:30px; */
-	background-color: rgb(185, 231, 220);
+	background-color: #e0e4e0;
     box-shadow: 0px 5px 20px #555;
     height:600px;
 }
@@ -91,4 +97,95 @@ a{
 .card-exceprt ul li{
     list-style: none;
     text-align:center;
+}
+/* ................................... */
+.image{
+    width:auto;
+    height:auto;
+    overflow: hidden;
+}
+.image img{
+    width:40vh;
+    height:auto;
+}
+
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+fieldset, label { margin: 0; padding: 0; }
+body{ margin: 20px; }
+h1 { font-size: 1.5em; margin: 10px; }
+
+/****** Style Star Rating Widget *****/
+
+.rating { 
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; } 
+.rating > label:before { 
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+/* .rating > .half:before { 
+  content: "\f089";
+  position: absolute;
+} */
+
+.rating > label { 
+  color: #ddd; 
+  float: right; 
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85; } 
+
+.image{
+    padding-top: 30px;
+}
+.help-block{
+    display:none;
+
+}
+.add-project form{
+    width:100%;
+    margin:0 auto;
+    text-align:center;
+    padding:20px;
+}
+.add-project form label{
+    display:none;
+    align-self: center;
+}
+.add-project{
+    font-family: 'Playfair Display', serif;
+    font-size:20px;
+    background-color: #91c9b2;
+    align-content: center;
+    border-radius: 5px;
+}
+.add-project h1{
+    font-size: 40px;
+    margin-left:0;
+    text-align: center;
+
+}
+.add-project button{
+    margin-left:0;
+}
+.add-project input,.add-project textarea,
+select{
+    width:60%;
 }

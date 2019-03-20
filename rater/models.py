@@ -76,6 +76,10 @@ class Project(models.Model):
     def get_project_by_userid(cls, id):
         project=Project.objects.filter(user__pk=id)
 
+    @classmethod
+    def get_project_by_id(cls, id):
+        project=Project.objects.filter(id=id)
+        
 class Rating(models.Model):
     '''
     To store average rate given to the project
