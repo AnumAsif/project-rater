@@ -28,7 +28,7 @@ a{
 }
 .card {
     width: 400px;
-    /* margin: 20px 20px; */
+    margin: 20px 20px;
     /* align-self: center; */
     /* margin-left:30px; */
 	background-color: #e0e4e0;

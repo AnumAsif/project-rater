@@ -29,11 +29,12 @@
                     {% endfor %} </p>
                    
                     <p><a href="{{project.link}}" style="font-size:15px; color: #777; font-family: 'Playfair Display', serif;">{{project.link}}</a></p>
-                </div>
+                    <p class="card-exceprt">By: <a style="font-size:15px;" href="">{{project.user.username}}</a></p>
                 
+                </div>
+
                 <div class="card-exert" style="margin-bottom:0; "><button class="btn btn-primary" ><a href="{% url 'project' project_id=project.id %}">Rate It</a></button></div>
-            
-            </div>
+             </div>
         
         </div>
     {% endfor %} 
