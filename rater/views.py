@@ -39,7 +39,9 @@ def project(request, project_id):
     project=Project.objects.filter(id=project_id).first()
     user=request.user
     rates = Rating.objects.filter(user=user, project=project).first()
-    averageRate=(rates.usability+rates.design+rates.content)/3
+    averageRate=0
+    if rates is not None:
+        averageRate=(rates.usability+rates.design+rates.content)/3
     if request.method == 'POST':
         form = RateForm(request.POST)
         if form.is_valid() and rates is None:
@@ -121,13 +123,14 @@ def edit_profile(request):
     return render(request, 'edit_profile.html', {'form':form, 'current_user':user})
 
 class ProfileList(APIView):
-   def get(self,request,format=None):
+    def get(self,request,format=None):
       users = User.objects.all()
       serializers = UserSerializer(users,many=True)
       return Response(serializers.data)
 
 class ProjectList(APIView):
-   def get(self,request,format=None):
+    def get(self,request,format=None):
       projects = Project.objects.all()
       serializers = ProjectSerializer(projects,many=True)
       return Response(serializers.data)
+
