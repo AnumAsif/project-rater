@@ -6,6 +6,10 @@ from .models import Project, Profile, Language, Rating
 from django.http import JsonResponse
 from .forms import ProjectForm, SignUpForm, ProfileForm, RateForm
 from django.contrib.auth.models import User
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer,ProjectSerializer,UserSerializer
+from django.http import JsonResponse
 # Create your views here.
 def signup(request):
     if request.method == 'POST':
@@ -116,19 +120,14 @@ def edit_profile(request):
 
     return render(request, 'edit_profile.html', {'form':form, 'current_user':user})
 
-# @login_required(login_url='/login')
-# def rate(request, id):
-#     project=Project.objects.filter(id=id).first()
-#     user=request.user
-#     if request.method == 'POST':
-#         form = RateForm(request.POST)
-#         if form.is_valid():
-#             rate=form.save(commit=False)
-#             rate.user=user
-#             rate.project=project
-#             rate.save()
-#             return redirect('project',project_id=project.id)
-#     else:
-#         form = RateForm()
-#     return render(request,'project.html',{'form':form, 'current_user':user,"project":project})
+class ProfileList(APIView):
+   def get(self,request,format=None):
+      users = User.objects.all()
+      serializers = UserSerializer(users,many=True)
+      return Response(serializers.data)
 
+class ProjectList(APIView):
+   def get(self,request,format=None):
+      projects = Project.objects.all()
+      serializers = ProjectSerializer(projects,many=True)
+      return Response(serializers.data)

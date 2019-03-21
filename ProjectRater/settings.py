@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     'rater.apps.RaterConfig',
     'pyuploadcare.dj',
     'bootstrap3',
+    'rest_framework',
+    'rest_framework.authtoken'
 ]
 UPLOADCARE = {
     'pub_key': '111878e0358f1fbf9828',
