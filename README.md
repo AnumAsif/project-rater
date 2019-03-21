@@ -33,7 +33,10 @@ This application is a simplest web clone of a website called awards. A user can 
     6. Run the application
     python3.6 manage.py runserver
     7. Access the application through `localhost:8000`
-	
+### API
+This project provides you with a simple REST-Api to get projects and user profiles information:
+    https://project-rater.herokuapp.com/api/profiles
+    https://project-rater.herokuapp.com/api/projects			
 ### Development
 Want to contribute? Great!
 
